@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    div.container.blog
+        div.content
+            div.article-header-row
+                h1.article-title=article.title
+            p.published-on Published
+                strong.emphasize #{article.friendlyPublishedDate}
+                | by
+                strong.emphasize #{article.author.first_name}
+
+            img.blog-image(src=article.image_url)
+            p.article-body=article.body
