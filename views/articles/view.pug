@@ -1,10 +1,15 @@
 extends ../layout
 
 block content
+    include ../mixins/comment
     div.container.blog
         div.content
             div.article-header-row
                 h1.article-title=article.title
+                if user && article.isOwnedBy(user)
+                    a.button(href=`/article/${article.id}/edit`) Edit
+                if user && user.is('admin')
+                    a.button(href=`/article/${article.id}/delete`) Delete
             p.published-on Published
                 strong.emphasize #{article.friendlyPublishedDate}
                 | by
@@ -12,3 +17,20 @@ block content
 
             img.blog-image(src=article.image_url)
             p.article-body=article.body
+
+            div.comment-section
+                h3.comment-section-title Comments (#{article.comments.length})
+                div.comment-form
+                    form(action=`/article/${article.id}/comment/create` method='post')
+                        div.input-container.wide
+                            label(for="author_name").form-label Your Name
+                            input(type="text" name="author_name" required=true)
+                        div.input-container.wide
+                            textarea(placeholder="Your comment here..." required=true name="body" id="body" cols="80" rows="5")
+                        div
+                            button.button.primary(type="submit") Comment
+
+                ul.comment-list
+                    each comment in article.comments
+                        li
+                            +comment(comment)
