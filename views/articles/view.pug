@@ -12,7 +12,7 @@ block content
                     a.button(href=`/article/${article.id}/delete`) Delete
             p.published-on Published
                 strong.emphasize #{article.friendlyPublishedDate}
-                | by
+                |  by
                 strong.emphasize #{article.author.first_name}
 
             img.blog-image(src=article.image_url)

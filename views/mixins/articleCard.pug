@@ -4,7 +4,7 @@ mixin articleCard(article)
         div.card-body
             div.card-title=article.title
             p.published-on Published
-                strong emphasize #{article.friendlyPublishedDate}
-                | by
                 strong.emphasize #{article.friendlyPublishedDate}
+                | by
+                strong.emphasize #{article.author.first_name}
             div.card-hook=article.intro
